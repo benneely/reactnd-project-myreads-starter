@@ -14,11 +14,8 @@ class BooksApp extends React.Component {
 
   componentDidMount() {
     getAll().then((result) => {
-      console.log(result)
-      this.setState((currentState) => {
-        currentState.reviewedBooks = result
-      })
-    })
+      this.setState({reviewedBooks: result});
+    });
   }
 
   render() {

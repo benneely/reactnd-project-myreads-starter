@@ -1,68 +1,23 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import Book from './Book';
+import BookShelf from './BookShelf';
 
 class ListBooks extends React.Component{
+
     render() {
+        const currentlyReading = this.props.reviewedBooks.filter((data) => data.shelf==='currentlyReading')
+        const wantToRead = this.props.reviewedBooks.filter((data) => data.shelf==='wantToRead')
+        const alreadyRead = this.props.reviewedBooks.filter((data) => data.shelf==='read')
+
         return (
             <div className="list-books">
                 <div className="list-books-title">
-                <h1>MyReads</h1>
+                    <h1>MyReads</h1>
                 </div>
                 <div className="list-books-content">
-                <div>
-                    <div className="bookshelf">
-                    <h2 className="bookshelf-title">Currently Reading</h2>
-                    <div className="bookshelf-books">
-                        <ol className="books-grid">
-                            {this.props.reviewedBooks.filter((data) => data.shelf==='currentlyReading').map((book) => {
-                                return (
-                                    <Book 
-                                        key={book.id}
-                                        BookTitle={book.title}
-                                        BookAuthor={book.authors[0]}
-                                        BookImageURL={`url(${book.imageLinks.thumbnail})`}
-                                    />
-                                )
-                            })}
-                        </ol>
-                    </div>
-                    </div>
-                    <div className="bookshelf">
-                    <h2 className="bookshelf-title">Want to Read</h2>
-                    <div className="bookshelf-books">
-                    <ol className="books-grid">
-                        {this.props.reviewedBooks.filter((data) => data.shelf==='wantToRead').map((book) => {
-                            return (
-                                <Book 
-                                    key={book.id}
-                                    BookTitle={book.title}
-                                    BookAuthor={book.authors[0]}
-                                    BookImageURL={`url(${book.imageLinks.thumbnail})`}
-                                />
-                            )
-                        })}
-                        </ol>
-                    </div>
-                    </div>
-                    <div className="bookshelf">
-                    <h2 className="bookshelf-title">Read</h2>
-                    <div className="bookshelf-books">
-                        <ol className="books-grid">
-                        {this.props.reviewedBooks.filter((data) => data.shelf==='read').map((book) => {
-                            return (
-                                <Book 
-                                    key={book.id}
-                                    BookTitle={book.title}
-                                    BookAuthor={book.authors[0]}
-                                    BookImageURL={`url(${book.imageLinks.thumbnail})`}
-                                />
-                            )
-                        })}
-                        </ol>
-                    </div>
-                    </div>
-                </div>
+                    <BookShelf books={currentlyReading} title='Currently Reading'/>
+                    <BookShelf books={wantToRead} title='Want to Read'/>
+                    <BookShelf books={alreadyRead} title='Read'/>
                 </div>
                 <Link to='/search' className="open-search">Add Contact</Link>
             </div>
