@@ -1,6 +1,6 @@
 import React from 'react'
 import './App.css'
-import {getAll} from './BooksAPI';
+import {getAll, update} from './BooksAPI';
 import { Route } from 'react-router-dom';
 import ListBooks from './ListBooks';
 import Search from './Search';
@@ -18,6 +18,16 @@ class BooksApp extends React.Component {
     });
   }
 
+  changeShelf = (book, shelfName) => {
+    update(book, shelfName).then((result) => {
+      book.shelf = shelfName
+      const newreviewedBooks = this.state.reviewedBooks.filter((nbook) => {return nbook.id !== book.id}).concat(book)
+      this.setState((currentState) => ({
+        reviewedBooks: newreviewedBooks
+      }))
+    })
+  }
+
   render() {
     return (
       <div className="app">
@@ -25,7 +35,7 @@ class BooksApp extends React.Component {
           <Search />
         )}/>
         <Route exact path='/' render={() => (
-          <ListBooks reviewedBooks={this.state.reviewedBooks}/>
+          <ListBooks reviewedBooks={this.state.reviewedBooks} handleChange={this.changeShelf}/>
         )}/>
       </div>
     )

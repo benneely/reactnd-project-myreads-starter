@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import BookShelf from './BookShelf';
+import PropTypes from 'prop-types';
 
 class ListBooks extends React.Component{
 
@@ -15,14 +16,19 @@ class ListBooks extends React.Component{
                     <h1>MyReads</h1>
                 </div>
                 <div className="list-books-content">
-                    <BookShelf books={currentlyReading} title='Currently Reading'/>
-                    <BookShelf books={wantToRead} title='Want to Read'/>
-                    <BookShelf books={alreadyRead} title='Read'/>
+                    <BookShelf books={currentlyReading} handleChange={this.props.handleChange} title='Currently Reading'/>
+                    <BookShelf books={wantToRead} handleChange={this.props.handleChange} title='Want to Read'/>
+                    <BookShelf books={alreadyRead} handleChange={this.props.handleChange} title='Read'/>
                 </div>
                 <Link to='/search' className="open-search">Add Contact</Link>
             </div>
         )
     }
+}
+
+ListBooks.propTypes = {
+    reviewedBooks: PropTypes.array.isRequired,
+    handleChange: PropTypes.func.isRequired
 }
 
 export default ListBooks

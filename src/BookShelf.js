@@ -1,5 +1,7 @@
 import React from 'react';
 import Book from './Book';
+import PropTypes from 'prop-types'
+
 
 const BookShelf = (props) => {
     return (
@@ -11,9 +13,8 @@ const BookShelf = (props) => {
                             return (
                                 <Book 
                                     key={book.id}
-                                    BookTitle={book.title}
-                                    BookAuthor={book.authors[0]}
-                                    BookImageURL={`url(${book.imageLinks.thumbnail})`}
+                                    BookMetadata={book}
+                                    handleChange={props.handleChange}
                                 />
                             )
                         })}
@@ -21,6 +22,12 @@ const BookShelf = (props) => {
                 </div>
         </div>
     )
+}
+
+BookShelf.propTypes = {
+    books: PropTypes.array.isRequired,
+    handleChange: PropTypes.func.isRequired,
+    title: PropTypes.string.isRequired
 }
 
 export default BookShelf
