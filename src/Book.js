@@ -6,7 +6,7 @@ const Book = (props) => {
         <li>
             <div className="book">
                 <div className="book-top">
-                <div className="book-cover" style={{ width: 128, height: 192, backgroundImage: `url(${props.BookMetadata.imageLinks.thumbnail})` }}></div>
+                <div className="book-cover" style={{ width: 128, height: 192, backgroundImage: props.BookMetadata.imageLinks && `url(${props.BookMetadata.imageLinks.thumbnail})` }}></div>
                 <div className="book-shelf-changer">
                     <select value={props.BookMetadata.shelf} onChange={(event) => {
                         props.handleChange(props.BookMetadata, event.target.value)
@@ -20,7 +20,7 @@ const Book = (props) => {
                 </div>
                 </div>
                 <div className="book-title">{props.BookMetadata.title}</div>
-                <div className="book-authors">{props.BookMetadata.authors[0]}</div>
+                <div className="book-authors">{props.BookMetadata.authors && props.BookMetadata.authors[0]}</div>
             </div>
         </li>
     )
